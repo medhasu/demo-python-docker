@@ -1,0 +1,12 @@
+<html>
+
+<body>
+    The following items set in redis
+    <ul>
+        {% for key in keys %}
+        <li><a href="/items/{{key.decode('ascii')}}">{{key.decode('ascii')}}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+# Example extract form https://github.com/dockersamples/example-voting-app/blob/master/k8s-specifications/webapp-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: webapp
+  name: webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - image: test/python-web-app
+        imagePullPolicy: Never
+        env:
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: redishost
+              key: REDISHOST
+        - name: REDIS_PORT
+          value: "6379"
+        name: webapp
+        ports:
+        - containerPort: 8009
+          name: webapp
+          
